@@ -1,0 +1,86 @@
+<form>
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>COVID-19 CORONAVIRUS PANDEMIC</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Country</mat-label>
+            <mat-select (selectionChange)="getCountry($event.value)" matNativeControl required>
+              <mat-option *ngFor="let country of countries" value={{country.Slug}}>
+                {{country.Country}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="getCovidData()" mat-raised-button color="accent">Show Data</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+<div class="grid-container" flexlayout fxFlexAlign="center">
+<!-- <mat-form-field appearance="fill">
+  <mat-label>Select Country</mat-label>
+  <mat-select (selectionChange)="getCountry($event.value)">
+    <mat-option *ngFor="let country of countries" value={{country.Slug}}>
+      {{country.Country}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-divider></mat-divider>
+<section>
+  <div class="example-button-row">
+    <button (click)="getCovidData()" mat-raised-button color="accent">Show Data</button>
+  </div>
+</section> -->
+
+<!-- <select (change)="getCountry($event.target.value)">
+  <option *ngFor="let country of countries" value={{country.Slug}}>{{country.Country}}</option>
+</select> -->
+
+<!-- <button (click)="getCovidData()">click me </button> -->
+
+<div class="mat-elevation-z8" *ngIf="showDetails">
+  <mat-table [dataSource]="listData" matSort>
+    <ng-container matColumnDef="Country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Country}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Confirmed">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Confirmed Cases</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Confirmed}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Recovered">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Recovered Cases</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Recovered}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Deaths">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Deaths</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Deaths}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Date">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.Date}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="6">
+        No data.
+      </mat-footer-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>
+</div>

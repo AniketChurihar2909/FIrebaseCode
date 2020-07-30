@@ -1,0 +1,33 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a routerLink='home' mat-list-item><mat-icon>home</mat-icon> Home</a>
+      <a routerLink='covid' mat-list-item><mat-icon>coronavirus</mat-icon> Covid-19 Updates</a>
+      <a routerLink='contact' mat-list-item ><mat-icon>perm_contact_calendar</mat-icon> Contact Us</a>
+      <a routerLink='about' mat-list-item><mat-icon>people</mat-icon> All Contacts</a>
+      <a style="display: none;" routerLink='location' mat-list-item><mat-icon>map</mat-icon> Location</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Welcome User </span>
+      <span class="spacer"></span>
+      <!-- <a (click)="authservice.singout()">Log Out</a> -->
+      <button (click)="authservice.singout()" mat-button> Log Out <mat-icon>eject</mat-icon></button>
+
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
